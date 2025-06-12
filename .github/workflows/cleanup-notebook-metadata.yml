@@ -1,11 +1,12 @@
-# .github/workflows/clean-notebook-metadata.yml
-name: Clean Notebook Metadata
+name: Cleanup Notebook Metadata
 
 on:
-  pull_request:
-    types: [opened, synchronize]
-    paths:
-      - '**.ipynb'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to clean (leave empty for current branch)'
+        required: false
+        default: ''
 
 jobs:
   clean-notebooks:
@@ -16,7 +17,7 @@ jobs:
       pull-requests: write
     
     steps:
-      - name: Checkout PR
+      - name: Checkout repository
         uses: actions/checkout@v4
       
       - name: Install jq
@@ -51,4 +52,4 @@ jobs:
           git config --local user.name "GitHub Action"
           git add -A
           git commit -m "Clean notebook metadata: remove widgets"
-          git push
+          git push origin ${{ github.event.inputs.branch || github.ref_name }}
