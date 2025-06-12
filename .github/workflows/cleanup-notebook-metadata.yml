@@ -1,6 +1,10 @@
 name: Cleanup Notebook Metadata
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '**.ipynb'
   workflow_dispatch:
     inputs:
       branch:
