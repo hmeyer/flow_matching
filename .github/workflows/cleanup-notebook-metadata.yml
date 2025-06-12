@@ -1,0 +1,54 @@
+# .github/workflows/clean-notebook-metadata.yml
+name: Clean Notebook Metadata
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '**.ipynb'
+
+jobs:
+  clean-notebooks:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+      
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      
+      - name: Clean notebook metadata
+        run: |
+          # Find all .ipynb files and process them
+          find . -name "*.ipynb" -type f | while read -r file; do
+            echo "Processing: $file"
+            # Create a temporary file
+            temp_file=$(mktemp)
+            # Remove metadata.widgets and save to temp file
+            jq 'del(.metadata.widgets)' "$file" > "$temp_file"
+            # Replace original file with cleaned version
+            mv "$temp_file" "$file"
+          done
+      
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit changes
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Clean notebook metadata: remove widgets"
+          git push
