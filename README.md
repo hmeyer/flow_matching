@@ -1,7 +1,7 @@
 # flow_matching
 Flow Matching Experiments using MNINST.
 
-The repo contains ipython notebooks that demonstrate Flow Matching and Discrete Flow Matching, both along with scorer guidance.
+This repo contains ipython notebooks that demonstrate Flow Matching and Discrete Flow Matching, both along with scorer guidance.
 The focus of the notebooks is to be instructive and fast, to allow for quick experimentation.
 We use the MNIST dataset b/c it is simple.
 
