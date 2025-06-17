@@ -13,3 +13,8 @@ Furthermore we use scorer guidance to generate brighter/darker digits:
 
 Using a trained classifier as guidance scorer we can generate specific digits from our unconditional model.
 ![image](https://github.com/user-attachments/assets/44f111fe-b85c-4a79-bf37-ede391406646)
+
+
+Scorers can also be combined.</br>
+![image](https://github.com/user-attachments/assets/886d4eb4-54bd-49d9-b0d6-23fc89283585)
+
