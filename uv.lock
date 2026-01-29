@@ -223,6 +223,11 @@ dependencies = [
     { name = "tqdm" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "ipykernel" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "einops", specifier = ">=0.8.1" },
@@ -232,6 +237,9 @@ requires-dist = [
     { name = "torchvision", specifier = ">=0.22.0" },
     { name = "tqdm", specifier = ">=4.67.1" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "ipykernel", specifier = ">=6.29.5" }]
 
 [[package]]
 name = "fonttools"

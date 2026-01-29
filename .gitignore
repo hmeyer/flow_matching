@@ -1,3 +1,4 @@
 data
 .venv
 .mypy_cache
+*.safetensors
